@@ -32,14 +32,6 @@ export default function App() {
     const savedConfig = localStorage.getItem("widgetConfig");
     return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
   });
-  if (typeof window !== "undefined") {
-    const localStorageMock = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
-      removeItem: jest.fn(),
-    };
-    global.localStorage = localStorageMock;
-  }
   const [saveRequested, setSaveRequested] = useState(false);
 
   function save() {
