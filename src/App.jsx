@@ -29,8 +29,12 @@ export default function App() {
   });
   const [saveRequested, setSaveRequested] = useState(false);
   const [widgetConfig, setWidgetConfig] = useState(() => {
-    const savedConfig = localStorage.getItem("widgetConfig");
-    return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
+    if (typeof window !== "undefined") {
+      const savedConfig = localStorage.getItem("widgetConfig");
+      return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
+    } else {
+      return DEFAULT_CONFIG;
+    }
   });
   useEffect(() => {
     if (saveRequested) {
