@@ -28,10 +28,15 @@ export default function App() {
     return { ...widget, positionData: { ...widget.positionData } };
   });
 
-  const [widgetConfig, setWidgetConfig] = useState(() => {
-    const savedConfig = localStorage.getItem("widgetConfig");
-    return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
-  });
+  useEffect(() => {
+    if (saveRequested) {
+      localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig));
+
+      setTimeout(() => {
+        setSaveRequested(false);
+      }, 1000);
+    }
+  }, [saveRequested, widgetConfig]);
   const [saveRequested, setSaveRequested] = useState(false);
 
   function save() {
